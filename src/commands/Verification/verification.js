@@ -195,8 +195,6 @@ async function handleSetup(interaction, guild, client) {
             .setStyle(ButtonStyle.Primary)
     );
 
-    verifyEmbed.setImage('https://cdn.discordapp.com/attachments/1446187844061237334/1508156440471404624/Creation_sans_titre_1.png?ex=6a1c6ca3&is=6a1b1b23&hm=185826f66304e7d4a8c173dd2f75058ffb596ece1fcbffdc670b2425635b497e&');
-    
     const verifyMessage = await verificationChannel.send({
         embeds: [verifyEmbed],
         components: [verifyButton]
