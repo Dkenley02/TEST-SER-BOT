@@ -183,7 +183,7 @@ async function handleSetup(interaction, guild, client) {
     await InteractionHelper.safeDefer(interaction);
 
     const verifyEmbed = createEmbed({
-        title: "✅ Server Verification",
+        title: "Server Verification",
         description: message,
         color: getColor('success')
     });
