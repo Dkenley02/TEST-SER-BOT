@@ -39,7 +39,7 @@ export default {
             await InteractionHelper.safeReply(interaction, {
                 embeds: [successEmbed(
                     "Verification Complete",
-                    `You have been verified and given the **${result.roleName}** role! Welcome to the server! 🎉`
+                    `You have been verified and given the **${result.roleName}** role! Welcome to the server! `
                 )],
                 flags: MessageFlags.Ephemeral
             });
