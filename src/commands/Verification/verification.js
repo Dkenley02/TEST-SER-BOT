@@ -194,7 +194,6 @@ async function handleSetup(interaction, guild, client) {
             .setLabel(buttonText)
             .setStyle(ButtonStyle.Success)
             .setEmoji("💠")
-            .setColor('#279CF5')
     );
 
     const verifyMessage = await verificationChannel.send({
