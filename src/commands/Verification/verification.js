@@ -186,6 +186,7 @@ async function handleSetup(interaction, guild, client) {
         title: "Server Verification",
         description: message,
         color: getColor('Primary')
+        color: '#279CF5'
     });
 
     const verifyButton = new ActionRowBuilder().addComponents(
