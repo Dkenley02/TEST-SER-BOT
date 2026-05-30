@@ -56,6 +56,8 @@ export default {
                 } else {
                     const embed = new EmbedBuilder()
                         .setColor(welcomeConfig.welcomeEmbed?.color || getColor('success'))
+                        .setColor('#00A9FF')
+                        .setColor('Blue')
                         .setTitle(embedTitle)
                         .setDescription(welcomeMessage)
                         .setThumbnail(user.displayAvatarURL())
