@@ -40,7 +40,7 @@ export default {
                 const messageContent = welcomeConfig.welcomePing ? user.toString() : null;
 
                 const embedTitle = formatWelcomeMessage(
-                    welcomeConfig.welcomeEmbed?.title || '🎉 Welcome!',
+                    welcomeConfig.welcomeEmbed?.title || 'Welcome to test!',
                     formatData
                 );
                 const embedFooter = welcomeConfig.welcomeEmbed?.footer
@@ -118,7 +118,7 @@ export default {
                     fields: [
                         {
                             name: '👤 Member',
-                            value: `${user.tag} (${user.id})`,
+                            value: `${user.tag}`,
                             inline: true
                         },
                         {
