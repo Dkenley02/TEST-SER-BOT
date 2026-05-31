@@ -7,12 +7,12 @@ import { sanitizeMarkdown } from '../../utils/sanitization.js';
 import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
-        .setName("dm")
-        .setDescription("Send a direct message to a user (Staff only)")
+        .setName("say")
+        .setDescription("Send a message to a channel")
         .addUserOption(option =>
             option
-                .setName("user")
-                .setDescription("The user to send a DM to")
+                .setName("channel")
+                .setDescription("Channel to send message to")
                 .setRequired(true)
         )
         .addStringOption(option =>
