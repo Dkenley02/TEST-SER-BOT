@@ -61,12 +61,15 @@ export default {
             }
 
             
-            if (targetUser.bot) {
-                return await InteractionHelper.safeEditReply(interaction, {
-                    embeds: [
-                        errorEmbed(
-                            "Cannot DM Bot",
-                            "You cannot send DMs to bot accounts."
+            await channel.send({
+               content: message
+            });
+
+            return await InteractionHelper.safeEditReply(interaction, {
+                embeds: [
+                    successEmbed(
+                        "Message Sent",
+                        `Successfully sent message to ${channel}`
                         ),
                     ],
                     flags: MessageFlags.Ephemeral,
@@ -74,61 +77,30 @@ export default {
             }
 
             
-            const sanitized = sanitizeMarkdown(message);
-
-            const dmChannel = await targetUser.createDM();
-            
-            await dmChannel.send({
-                embeds: [
-                    successEmbed(
-                        anonymous ? "Message from the Staff Team" : `Message from ${interaction.user.tag}`,
-                        sanitized
-                    ).setFooter({
-                        text: `You cannot reply to this message. | Logger ID: ${interaction.id}`
-                    })
-                ]
-            });
-
-            await logEvent({
-                client: interaction.client,
-                guild: interaction.guild,
-                event: {
-                    action: "DM Sent",
-                    target: `${targetUser.tag} (${targetUser.id})`,
-                    executor: `${interaction.user.tag} (${interaction.user.id})`,
-                    reason: `Anonymous: ${anonymous ? 'Yes' : 'No'}`,
-                    metadata: {
-                        userId: targetUser.id,
-                        moderatorId: interaction.user.id,
-                        anonymous,
-                        messageLength: sanitized.length
-                    }
-                }
+                        await channel.send({
+                content: message
             });
 
             return await InteractionHelper.safeEditReply(interaction, {
                 embeds: [
                     successEmbed(
-                        "DM Sent",
-                        `Successfully sent a message to ${targetUser.tag}`
-                    ),
+                        "Message Sent",
+                        `Successfully sent message to ${channel}`
+                    )
                 ],
+                flags: MessageFlags.Ephemeral
             });
+
         } catch (error) {
-            logger.error('DM command error:', error);
-            
-if (error.code === 50007) {
-                return await InteractionHelper.safeEditReply(interaction, {
-                    embeds: [
-                        errorEmbed("Error", `Could not send a DM to ${targetUser.tag}. They may have DMs disabled.`),
-                    ],
-                });
-            }
-            
+            logger.error("Say command error:", error);
+
             return await InteractionHelper.safeEditReply(interaction, {
                 embeds: [
-                    errorEmbed("Error", `Failed to send DM: ${error.message}`),
-                ],
+                    errorEmbed(
+                        "Error",
+                        `Failed to send message: ${error.message}`
+                    )
+                ]
             });
         }
     }
