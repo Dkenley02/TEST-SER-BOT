@@ -42,18 +42,18 @@ export default {
             return;
         }
 
-    const targetUser = interaction.options.getUser("user");
+    const targetUser = interaction.options.getUser("channel");
         const message = interaction.options.getString("message");
         const anonymous = interaction.options.getBoolean("anonymous") || false;
 
         try {
             
-            if (message.length > 2000) {
+            if (!channel.isTextBased()) {
                 return await InteractionHelper.safeEditReply(interaction, {
                     embeds: [
                         errorEmbed(
-                            "Message Too Long",
-                            "Messages must be under 2000 characters."
+                            "Invalid Channel",
+                            "Please select a text channel."
                         ),
                     ],
                     flags: MessageFlags.Ephemeral,
