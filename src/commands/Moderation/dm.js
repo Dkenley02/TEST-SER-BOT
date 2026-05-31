@@ -27,14 +27,14 @@ export default {
                 .setDescription("Send the message anonymously (default: false)")
                 .setRequired(false)
         )
-        .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMassage)
         .setDMPermission(false),
-    category: "Moderation",
+    category: "Utility",
 
-    async execute(interaction, config, client) {
+    async execute(interaction) {
         const deferSuccess = await InteractionHelper.safeDefer(interaction);
         if (!deferSuccess) {
-            logger.warn(`DM interaction defer failed`, {
+            logger.warn(`Say command defer failed`, {
                 userId: interaction.user.id,
                 guildId: interaction.guildId,
                 commandName: 'dm'
