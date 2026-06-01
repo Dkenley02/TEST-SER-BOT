@@ -11,7 +11,7 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
         .setName("say")
-        .setDescription("Send a message to a channel")
+        .setDescription("Send an embed message to a channel")
         .addChannelOption(option =>
             option
                 .setName("channel")
@@ -20,8 +20,14 @@ export default {
         )
         .addStringOption(option =>
             option
+                .setName("title")
+                .setDescription("Embed title")
+                .setRequired(true)
+        )
+        .addStringOption(option =>
+            option
                 .setName("message")
-                .setDescription("Message to send")
+                .setDescription("Embed message")
                 .setRequired(true)
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
@@ -38,6 +44,7 @@ export default {
         }
 
         const channel = interaction.options.getChannel("channel");
+        const title = interaction.options.getString("title");
         const message = interaction.options.getString("message");
 
         try {
@@ -54,14 +61,20 @@ export default {
             }
 
             await channel.send({
-                content: message
+                embeds: [
+                    {
+                        title: title,
+                        description: message,
+                        color: 0x279CF5
+                    }
+                ]
             });
 
             return await InteractionHelper.safeEditReply(interaction, {
                 embeds: [
                     successEmbed(
                         "Message Sent",
-                        `Successfully sent message to ${channel}`
+                        `Successfully sent embed to ${channel}`
                     )
                 ],
                 flags: MessageFlags.Ephemeral
