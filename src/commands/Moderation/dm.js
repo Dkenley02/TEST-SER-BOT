@@ -34,7 +34,7 @@ export default {
             option
                 .setName("picture")
                 .setDescription("Image URL for the embed")
-                .setRequired(true)
+                .setRequired(false)
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
         .setDMPermission(false),
