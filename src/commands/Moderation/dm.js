@@ -30,6 +30,12 @@ export default {
                 .setDescription("Embed message")
                 .setRequired(true)
         )
+        .addStringOption(option =>
+            option
+                .setName("picture")
+                .setDescription("Image URL for the embed")
+                .setRequired(false)
+        )
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
         .setDMPermission(false),
 
@@ -46,6 +52,7 @@ export default {
         const channel = interaction.options.getChannel("channel");
         const title = interaction.options.getString("title");
         const message = interaction.options.getString("message");
+        const picture = interaction.options.getString("picture");
 
         try {
             if (!channel.isTextBased()) {
@@ -60,14 +67,20 @@ export default {
                 });
             }
 
+            const embed = {
+                title: title,
+                description: message,
+                color: 0x279CF5
+            };
+
+            if (picture) {
+                embed.image = {
+                    url: picture
+                };
+            }
+
             await channel.send({
-                embeds: [
-                    {
-                        title: title,
-                        description: message,
-                        color: 0x279CF5
-                    }
-                ]
+                embeds: [embed]
             });
 
             return await InteractionHelper.safeEditReply(interaction, {
